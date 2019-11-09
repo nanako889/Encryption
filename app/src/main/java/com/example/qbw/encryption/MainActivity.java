@@ -3,7 +3,7 @@ package com.example.qbw.encryption;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.qbw.encryption.AESUtil;
+import com.qbw.encryption.AESUtil1;
 import com.qbw.encryption.Base64Util;
 import com.qbw.encryption.Constant;
 import com.qbw.encryption.MD5Util;
@@ -28,24 +28,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void aes128Test() {
         try {
-            String[] seeds = new String[]{"0123456789abcdef", "0123456789abcdef0", "0123456789abcd哦", "aa我"};
+            String[] seeds = new String[]{
+                    "0123456789abcdef", "0123456789abcdef0", "0123456789abcd哦", "aa我"
+            };
 
             String content = "你好AES!";
 
             XLog.line(true);
-            String s = AESUtil.encryptBase64(seeds[0], content);
+            String s = AESUtil1.encryptBase64(seeds[0], content);
             XLog.d(s);
-            s = AESUtil.decryptBase64(seeds[0], s);
+            s = AESUtil1.decryptBase64(seeds[0], s);
             XLog.d(s);
             XLog.line(false);
 
             for (String seed : seeds) {
 
                 XLog.d(String.format("content=%s", content));
-                byte[] be = AESUtil.encrypt(seed.getBytes("utf-8"), content.getBytes("utf-8"));
+                byte[] be = AESUtil1.encrypt(seed.getBytes("utf-8"), content.getBytes("utf-8"));
                 String encryContent = StringUtil.byteToHexString(be);
                 XLog.d(String.format("encryContent=%s", encryContent));
-                byte[] bd = AESUtil.decrypt(seed.getBytes("utf-8"), be);
+                byte[] bd = AESUtil1.decrypt(seed.getBytes("utf-8"), be);
                 String decryContent = new String(bd, "utf-8");
                 XLog.d(String.format("decryContent=%s", decryContent));
             }
@@ -69,6 +71,13 @@ public class MainActivity extends AppCompatActivity {
             byte[] contentBytesN = StringUtil.hexStringToByte(contentHex);
             String _content = new String(contentBytesN, "utf-8");
             XLog.d(String.format("%s", _content));
+
+
+            String test = new String(AESUtil1.decrypt("6sa175asc@qq.com".getBytes(),
+                                                      "2kxqG45Lj2BOq4chQV2I2qoicv4UxIK7orAzcTBHMOI5iybh5VGWeaH61qm4kWAK],license[qP/gy1MHhyiYyhUoSfEqex7zHBtZONMySsCkllZYh/J3JbslVemYlWo6UZgtR8F5UQTM/CjZO6cp57i8T3/b85tb96BoIrg3SOQxecDuN7T6Bg+9nWVpuNO8JhKf7UQu"
+                                                  .getBytes(),
+                                                      AESUtil1.SecretLen.LEN_NONE));
+            XLog.w("test[%s]", test);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -76,7 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void testRsaTest() {
         byte[][] bkeys = RSAUtil.randomGetKyes();
-        String[] keys = new String[]{new String(Base64Util.encode(bkeys[0])), new String(Base64Util.encode(bkeys[1]))};
+        String[] keys = new String[]{
+                new String(Base64Util.encode(bkeys[0])), new String(Base64Util.encode(bkeys[1]))
+        };
         XLog.d("keys[%s] [%s]", keys[0], keys[1]);
         String content = "{\"password\":\"123456\",\"phone\":\"13048857563\"}";
         String s = RSAUtil.encrypt(RSAUtil.getPublicKey(bkeys[0]), content);
@@ -101,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
             XLog.d(md5s);
             md5s = MD5Util.encryptHex(s);
             XLog.d(md5s);
-            md5s = new String(Base64Util.encode(MD5Util.encrypt(s.getBytes(Constant.Charset.UTF_8))), Constant.Charset.UTF_8);
+            md5s = new String(Base64Util.encode(MD5Util.encrypt(s.getBytes(Constant.Charset.UTF_8))),
+                              Constant.Charset.UTF_8);
             XLog.d(md5s);
             md5s = MD5Util.encryptBase64(s);
             XLog.d(md5s);
