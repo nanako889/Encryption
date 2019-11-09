@@ -1,5 +1,7 @@
 package com.qbw.encryption;
 
+import android.util.Base64;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -17,7 +19,7 @@ import javax.crypto.spec.SecretKeySpec;
  */
 public class AESUtil {
 
-    private static byte[] doFinal(boolean isEncrypt,
+    public static byte[] doFinal(boolean isEncrypt,
                                   byte[] keySecret,
                                   byte[] keyIv,
                                   byte[] contentNeedEncrypt) {
@@ -56,4 +58,29 @@ public class AESUtil {
         return result;
     }
 
+    public static String decrypt(String content, String password) {
+        try {
+            IvParameterSpec iv = new IvParameterSpec("6549846516589321".getBytes());//使用CBC模式，需要一个向量iv，可增加加密算法的强度
+            SecretKeySpec key = new SecretKeySpec(password.getBytes(), "AES");
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");// 创建密码器
+            cipher.init(Cipher.DECRYPT_MODE, key, iv);// 初始化
+            byte[] result = cipher.doFinal(Base64.decode(content, Base64.DEFAULT));
+            return new String(result);
+
+            // return result; // 加密
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

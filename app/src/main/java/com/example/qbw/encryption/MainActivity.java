@@ -2,7 +2,9 @@ package com.example.qbw.encryption;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 
+import com.qbw.encryption.AESUtil;
 import com.qbw.encryption.AESUtil1;
 import com.qbw.encryption.Base64Util;
 import com.qbw.encryption.Constant;
@@ -71,13 +73,6 @@ public class MainActivity extends AppCompatActivity {
             byte[] contentBytesN = StringUtil.hexStringToByte(contentHex);
             String _content = new String(contentBytesN, "utf-8");
             XLog.d(String.format("%s", _content));
-
-
-            String test = new String(AESUtil1.decrypt("6sa175asc@qq.com".getBytes(),
-                                                      "2kxqG45Lj2BOq4chQV2I2qoicv4UxIK7orAzcTBHMOI5iybh5VGWeaH61qm4kWAK],license[qP/gy1MHhyiYyhUoSfEqex7zHBtZONMySsCkllZYh/J3JbslVemYlWo6UZgtR8F5UQTM/CjZO6cp57i8T3/b85tb96BoIrg3SOQxecDuN7T6Bg+9nWVpuNO8JhKf7UQu"
-                                                  .getBytes(),
-                                                      AESUtil1.SecretLen.LEN_NONE));
-            XLog.w("test[%s]", test);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

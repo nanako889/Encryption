@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import java.io.UnsupportedEncodingException;
 
+@Deprecated
 public class Base64Util {
 
 	public static String encode(String content) {
