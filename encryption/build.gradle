@@ -2,13 +2,12 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "23.0.2"
 
     defaultConfig {
-        minSdkVersion 11
+        minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "2.2.0"
+        versionName "2.2.2"
     }
     buildTypes {
         release {
@@ -19,7 +18,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.qbw.log:xlog:1.1.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.qbw.log:xlog:1.1.1'
 }
