@@ -1,9 +1,8 @@
 # Encryption
+    AES,MD5,RSA,BASE64
 
-
-常用的加密算法,AES,MD5,RSA,BASE64
+# Download
+    implementation 'top.qinbaowei:encrption:3.0'
 
 # Author
-
-
-qbaowei@qq.com
+    qbaowei@foxmail.com

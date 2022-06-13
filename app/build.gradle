@@ -22,6 +22,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.0.1'
-    implementation 'com.qbw.log:xlog:1.1.1'
+    implementation 'top.qinbaowei:log:1.0'
     implementation project(':encryption')
 }
